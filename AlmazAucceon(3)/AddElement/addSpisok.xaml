@@ -102,8 +102,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding IdSpisacTovars}" />
                     <DataGridTextColumn Header="Пользователь" Binding="{Binding IdUserNavigation.Fullname}" />
-                    <DataGridTextColumn Header="Тавар" Binding="{Binding IdProdyctNavigation.ItemName}" />
-                    <DataGridTemplateColumn Header="Тавар"/>
+                  
+                    <DataGridTemplateColumn Header="Все товары"/>
                 </DataGrid.Columns>
             </DataGrid>
 
