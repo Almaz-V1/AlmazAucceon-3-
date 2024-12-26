@@ -1,18 +1,21 @@
 ﻿<Window x:Class="AlmazAucceon_3_.AddElement.addSpisok"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
- xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
- xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
- xmlns:local="clr-namespace:AlmazAucceon_3_"
- mc:Ignorable="d"
-                                              Closed="Window_Closed"                                                                                                                                                               Title="Меню (Список менеджеолв)" Loaded="Window_Loaded"        WindowStartupLocation="CenterScreen" WindowState="Maximized"  MinHeight="800" MinWidth="1100" 
-     
-  Height="800" Width="1200" FontSize="16">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlmazAucceon_3_"
+        mc:Ignorable="d"
+        
+        Closed="Window_Closed"
+        Title="Меню (Список менеджеолв)"   
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized" 
+        MinHeight="800" MinWidth="1100" 
+        Height="800" Width="1200" FontSize="16">
     <Window.Resources>
 
         <Style TargetType="Label"  x:Key="DocButton">
             <Style.Setters>
-
                 <Setter Property="Foreground" Value="Black" />
                 <Setter Property="FontFamily" Value="MS Reference Sans Serif" />
                 <Setter Property="FontSize" Value="24" />
@@ -21,8 +24,6 @@
                 <Setter Property="MaxWidth" Value="275" />
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
-
-
             </Style.Setters>
         </Style>
 
@@ -50,10 +51,10 @@
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
 
-                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="0" Content="Сортировка" VerticalAlignment="Bottom" Margin="10,0,0,26" Grid.RowSpan="2"/>
-                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="1" Content="Фильтрация" VerticalAlignment="Bottom" Margin="10,0,0,26" Grid.RowSpan="2"/>
-                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="2" Content="Сброс настроек" VerticalAlignment="Bottom" Margin="10,0,0,26" Grid.RowSpan="2"/>
-                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="3" Content="Поиск" VerticalAlignment="Bottom" Margin="10,0,0,26" Grid.RowSpan="2"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="0" Content="Сортировка" VerticalAlignment="Bottom" Margin="10,0,0,40" Grid.RowSpan="2"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="1" Content="Фильтрация" VerticalAlignment="Bottom" Margin="10,0,0,40" Grid.RowSpan="2"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="2" Content="Сброс настроек" VerticalAlignment="Bottom" Margin="10,0,0,40" Grid.RowSpan="2"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="3" Content="Поиск" VerticalAlignment="Bottom" Margin="10,0,0,40" Grid.RowSpan="2"/>
 
                 <ComboBox  FontSize="20" FontFamily="MS Reference Sans Serif"  Grid.Row="1"  Height="45" Name="sortComboBox" 
                SelectionChanged="sortComboBox_SelectionChanged" SelectedIndex="0"
@@ -92,7 +93,7 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <DataGrid DataGrid.IsReadOnly = "True" x:Name="dataGridObject"  RowBackground="Transparent" AutoGenerateColumns ="False" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,590,0"  >
+            <DataGrid DataGrid.IsReadOnly = "True" x:Name="dataGridObject" FontSize="32"  RowBackground="Transparent" AutoGenerateColumns ="False" SelectionChanged="DataGrid_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0,590,0"  >
                 <DataGrid.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="1">
                         <GradientStop Color="Gold" Offset="0.0"/>
@@ -102,8 +103,6 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding IdSpisacTovars}" />
                     <DataGridTextColumn Header="Пользователь" Binding="{Binding IdUserNavigation.Fullname}" />
-                  
-                    <DataGridTemplateColumn Header="Все товары"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -117,52 +116,38 @@
 
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
-
-
+                        <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.3*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Style="{StaticResource ResourceKey=DocButton}" Content="Тавар:" FontSize="22" Grid.Row="1" VerticalAlignment="Top" Margin="15,5,0,0" Height="43" Width="170"/>
-                    <Label Style="{StaticResource ResourceKey=DocButton}" Content="Категория:" FontSize="22" Grid.Row="2" VerticalAlignment="Top" Margin="15,5,0,0" Height="43" Width="170"/>
-                    <Label Style="{StaticResource ResourceKey=DocButton}" Content="Цена:" FontSize="22" Grid.Row="3" VerticalAlignment="Top" Margin="15,5,0,0" Height="43" Width="170"/>
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Content="Товары:" FontSize="22" Grid.Row="1" VerticalAlignment="Top" Margin="15,5,0,0" Height="43" Width="170"/>
+                    <ListView
+                        Margin="0 50 0 0"
+                        Grid.Row="1"
+                        Grid.RowSpan="3"
+                        Grid.ColumnSpan="2"
+                        Name="ItemsListView"
+                        Background="Transparent"
+                        FontSize="20"
+                        IsHitTestVisible="False">
+                    </ListView>
 
 
 
                     <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Content="Пользователь:" VerticalAlignment="Top" FontSize="22" Margin="15,5,0,0" Height="43" Width="181"/>
-                    <ComboBox PreviewKeyDown="MainTextBox_PreviewKeyDown" Opacity="0.5"  DisplayMemberPath="ItemNameCost"  x:Name="TavarItemsComboBox" Grid.Column="1"   
-                  VerticalAlignment="Top" Grid.Row="1" FontSize="28" Height="39" Margin="15,10,10,0" SelectionChanged="TavarItems_SelectionChanged"/>
-                    <TextBox PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="UserCombobox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Клиент" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" IsEnabled="False">
+                    <TextBox FontSize="28" Name="UserCombobox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Клиент" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" IsEnabled="False">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="9"/>
                             </Style>
                         </TextBox.Resources>
-                    </TextBox>
-                    
-                    <TextBox  PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="Kategori" IsEnabled="False" Tag="Категория" Grid.Row="2" Style="{StaticResource PlaceholderTextBoxStyle}" Grid.Column="2" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" TextChanged="IdDojnostBox_TextChanged">
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="9"/>
-                            </Style>
-                        </TextBox.Resources>
-
-                    </TextBox>
-                    <TextBox  PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="CostTextBox" IsEnabled="False" Tag="Цена" Grid.Row="3" Style="{StaticResource PlaceholderTextBoxStyle}" Grid.Column="2" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" TextChanged="IdDojnostBox_TextChanged">
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="9"/>
-                            </Style>
-                        </TextBox.Resources>
-
                     </TextBox>
 
 

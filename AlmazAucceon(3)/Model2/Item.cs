@@ -11,6 +11,8 @@ public partial class Item
 
     public string ItemNameCost => $"{ItemName}. Цена {CurrentPrice} руб.";
 
+    public string ItemNameCostCategory => $"Наименование: {ItemName}. Цена {CurrentPrice} руб. Категория: {Categotia.Title}";
+
     public int CategotiaId { get; set; }
 
     public int CurrentPrice { get; set; }

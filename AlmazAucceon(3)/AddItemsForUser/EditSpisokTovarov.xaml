@@ -1,0 +1,82 @@
+﻿<Window x:Class="AlmazAucceon_3_.AddItemsForUser.EditSpisokTovarov"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlmazAucceon_3_.AddItemsForUser"
+        
+        Title="Окно изменения товаров для клиента" 
+        WindowStartupLocation="CenterScreen"
+        Height="950" Width="850">
+
+    <Window.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Margin" Value="0 5"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="1">
+                <GradientStop Color="Gold" Offset="0.0"/>
+                <GradientStop Color="#800020" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Margin="50" Grid.Row="0" FontWeight="Bold" FontSize="24" MaxHeight="50" MaxWidth="500"  Content="Изменить товары для клиента" FontFamily="MS Reference Sans Serif" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <DockPanel Grid.Row="1">
+            <Label Style="{StaticResource ResourceKey=DocButton}" Content="Пользователь:" VerticalAlignment="Top" FontSize="22" Margin="15,5,0,0" Height="43" Width="181"/>
+            <TextBox IsEnabled="False" Width="Auto" FontSize="28" Name="UserTextBox" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="2">
+            <Label Style="{StaticResource ResourceKey=DocButton}" Content="Товары:" VerticalAlignment="Top" FontSize="22" Margin="15,5,0,0" Height="43" Width="181"/>
+            <ComboBox DisplayMemberPath="ItemNameCost" Width="Auto" FontSize="28" Name="ItemsCombobox" SelectionChanged="ItemsCombobox_SelectionChanged" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5"/>
+        </DockPanel>
+
+        <Grid Grid.Row="3" Margin="0">
+            <ListView
+                VerticalContentAlignment="Top"
+                Name="ItemsListView"
+                Background="Transparent"
+                FontSize="20"
+                DisplayMemberPath="ItemNameCostCategory"
+                IsHitTestVisible="False">
+            </ListView>
+        </Grid>
+
+        <Button Grid.Row="4" Background="Gold" Margin="25"  Name="ResetButton" FontSize="22" Content="Сбросить товары" Height="45" VerticalAlignment="Center" Click="ResetButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button Grid.Row="5" Background="Gold" Margin="25"  Name="AddButton" FontSize="22" Content="Добавить" Height="45" VerticalAlignment="Center" Click="AddButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button Grid.Row="6" Background="Gold" Margin="25"  Name="ExitButton" FontSize="22" Content="Выйти" Height="45" VerticalAlignment="Center" Click="ExitButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Grid>
+</Window>
