@@ -54,7 +54,7 @@ namespace AlmazAucceon_3_.AddItemsForUser
             {
                 if (_selectedUser.IdUser == itemUser.IdUser) // Если совпадает ID пользователей
                 {
-                    var item = dbContext.Items.Single(r => r.ItemId ==  itemUser.IdProdyct);
+                    var item = dbContext.Items.Single(r => r.ItemId == itemUser.IdProdyct);
                     ItemsListView.Items.Add(item); // Добавляем его услуги в ListView
                 }
             }

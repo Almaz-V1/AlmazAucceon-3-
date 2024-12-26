@@ -44,7 +44,7 @@
             <ComboBox DisplayMemberPath="ItemNameCost" Width="Auto" FontSize="28" Name="ItemsCombobox" SelectionChanged="ItemsCombobox_SelectionChanged" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5"/>
         </DockPanel>
 
-        <Grid Grid.Row="3" Margin="0">
+        <Grid Grid.Row="3" Margin="10 20">
             <ListView
                 VerticalContentAlignment="Top"
                 Name="ItemsListView"
