@@ -9,6 +9,8 @@ public partial class Item
 
     public string ItemName { get; set; } = null!;
 
+    public string ItemNameCost => $"{ItemName}. Цена {CurrentPrice} руб.";
+
     public int CategotiaId { get; set; }
 
     public int CurrentPrice { get; set; }

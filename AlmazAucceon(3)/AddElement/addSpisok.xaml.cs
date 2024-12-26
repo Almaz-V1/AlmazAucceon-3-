@@ -46,6 +46,36 @@ namespace AlmazAucceon_3_.AddElement
             string famil = _thisStaffe.StaffLastname;
             string Papatronymics = _thisStaffe.StaffPatronymic;
             Disponsi(famil, Names, Papatronymics);
+
+            // Инициализируем список всех записей клиент-товар
+            var spisactovarsList = dbContext.Spisactovars
+                .Include(r => r.IdUserNavigation)
+                .Include(r => r.IdProdyctNavigation)
+                .ThenInclude(t => t.Categotia)
+                .ToList();
+            // Передаем его в датагрид
+            dataGridObject.ItemsSource = spisactovarsList;
+
+            // Получаем список ID товаров из Spisactovars для проверки
+            var usedProductIds = spisactovarsList.Select(s => s.IdProdyct).ToList();
+
+            // Фильтруем товары, исключая те, которые уже используются в Spisactovars
+            var availableItems = dbContext.Items
+                .Include(r => r.Categotia)
+                .Where(item => !usedProductIds.Contains(item.ItemId)) // Проверка на наличие ID товара в списке
+                .ToList();
+
+            // Получаем список ID клиентов из Spisactovars для проверки
+            var usedUsersIds = spisactovarsList.Select(s => s.IdUser).ToList();
+
+            // Фильтруем пользователей, исключая тех, которые уже используются в Spisactovars
+            var availableUsers = dbContext.Users
+                .Include(r => r.IdRoleNavigation)
+                .Where(item => !usedUsersIds.Contains(item.IdUser)) // Проверка на наличие ID клиента в списке
+                .ToList();
+
+            TavarItemsComboBox.ItemsSource = availableItems;
+            UserCombobox.ItemsSource = availableUsers;
         }
         private void Disponsi(string famil, string Names, string Papatronymics)
         {
@@ -106,7 +136,9 @@ namespace AlmazAucceon_3_.AddElement
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var selectedSpisokTovarov = dataGridObject.SelectedItem as Spisactovar;
 
+            UserCombobox.Text = selectedSpisokTovarov.IdUserNavigation.Fullname;
         }
 
         private void MainTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -130,9 +162,6 @@ namespace AlmazAucceon_3_.AddElement
                     e.Handled = true; // Запретить ввод, если превышена длина
                 }
             }*/
-
-
-
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -142,6 +171,19 @@ namespace AlmazAucceon_3_.AddElement
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void TavarItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Item item = TavarItemsComboBox.SelectedItem as Item;
+
+            Kategori.Text = item.Categotia.Title;
+            CostTextBox.Text = $"{item.CurrentPrice} руб.";
+        }
+
+        private void UserTextBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

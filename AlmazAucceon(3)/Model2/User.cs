@@ -15,6 +15,8 @@ public partial class User
 
     public string Psswords { get; set; } = null!;
 
+    public string Fullname => $"{Lastname} {UserName} {Patronymic}";
+
     public string Login { get; set; } = null!;
 
     public int IdRole { get; set; }

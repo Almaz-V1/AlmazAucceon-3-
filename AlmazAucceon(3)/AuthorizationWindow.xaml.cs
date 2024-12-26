@@ -17,9 +17,9 @@ namespace AlmazAucceon_3_
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AuthorizationWindow : Window
     {
-        public MainWindow()
+        public AuthorizationWindow()
         {
             InitializeComponent();
             RefreshUsers();

@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AlmazAucceon_3_.AddElement
 {
@@ -41,6 +42,19 @@ namespace AlmazAucceon_3_.AddElement
             "Номер телефона по убыванию"
 
         };
+
+        // Приватные поля
+        private string _originalUserName;        // Имя пользователя
+        private string _originalLastname;        // Фамилия
+        private string _originalPatronymic;      // Отчество
+        private string _originalEmail;           // Email
+        private string _originalPhoneNumber;     // Номер телефона
+        private int _originalIdRole;     // Название роли
+        private string _originalPassword;        // Пароль
+        private string _originalMoney;           // Деньги
+        private int _originalIdUser;             // ID пользователя
+        private DateTime _originalDataUser;      // Дата пользователя
+
         public AddUserWindow(Staffe thisStaffe)
         {
             InitializeComponent();
@@ -149,6 +163,7 @@ namespace AlmazAucceon_3_.AddElement
             UpdateUsersList();
         }
 
+        #region Датагрид
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dataGridObject.SelectedItem != null)
@@ -164,8 +179,21 @@ namespace AlmazAucceon_3_.AddElement
                 Text1.Text = satrudneke.Money.ToString();
                 idDt = satrudneke.IdUser;
                 BirthdayPicker.SelectedDate = new DateTime(satrudneke.DataUser.Year, satrudneke.DataUser.Month, satrudneke.DataUser.Day);
+
+                // Присваиваем значения в приватные поля
+                _originalUserName = satrudneke.UserName;
+                _originalLastname = satrudneke.Lastname;
+                _originalPatronymic = satrudneke.Patronymic;
+                _originalEmail = satrudneke.Email;               
+                _originalPhoneNumber = satrudneke.PhoneNumber;    
+                _originalIdRole = satrudneke.IdRoleNavigation.Id; 
+                _originalPassword = satrudneke.Psswords;          
+                _originalMoney = satrudneke.Money;                
+                _originalIdUser = satrudneke.IdUser;            
+                _originalDataUser = new DateTime(satrudneke.DataUser.Year, satrudneke.DataUser.Month, satrudneke.DataUser.Day); // 
             }
         }
+        #endregion
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -567,9 +595,6 @@ namespace AlmazAucceon_3_.AddElement
             string Many = Text1.Text;
             string PassportUser1 = IdDojnostBox.Text;
             EditButtonProverka(SurnameUser1, NameUser1, PatronymicUser1, NumberUser1, PasswordUser1, LoginUser1, Many, PassportUser1);
-
-
-
         }
         private void EditButtonProverka(string SurnameUser1, string NameUser1, string PatronymicUser1, string NumberUser1, string PasswordUser1, string LoginUser1, string Many, string PassportUser1)
         {
@@ -577,6 +602,7 @@ namespace AlmazAucceon_3_.AddElement
             User user2 = App.context.Users.ToList().Find(u => u.PhoneNumber == PhoneNumberBox.Text && u.IdUser != Convert.ToUInt32(idDt));
             Staffe user3 = App.context.Staffes.ToList().Find(u => u.Email == EmailBox.Text);
             Staffe user4 = App.context.Staffes.ToList().Find(u => u.PhoneNumber == PhoneNumberBox.Text);
+
             if (string.IsNullOrWhiteSpace(NameUser1))
             {
                 MessageBox.Show("Пожалуйста, введите Имя.");
@@ -663,6 +689,8 @@ namespace AlmazAucceon_3_.AddElement
                 AddChange(SurnameUser1, NameUser1, PatronymicUser1, NumberUser1, PasswordUser1, LoginUser1, Many, PassportUser1);
             }
         }
+
+        #region Редактирование
         private void AddChange(string SurnameUser1, string NameUser1, string PatronymicUser1, string NumberUser1, string PasswordUser1, string LoginUser1, string Many, string PassportUser1)
         {
             string name = NameUser1;
@@ -675,7 +703,16 @@ namespace AlmazAucceon_3_.AddElement
             int idDolgnost = 3;
             int many = int.Parse(Many);
 
-            if (!AreAllValidChars5(password))
+            // Результат проверки на изменения данных о пользователе
+            bool hasChanged = HasChanged(name, LasteName, patronumic, birthDateTime, email, phoneNumber, password, idDolgnost, many);
+
+            if (!hasChanged)
+            {
+                MessageBox.Show("Вы не внесли изменений.", "Ошибка");
+                PatronymicBox.Clear(); // Очищаем TextBox
+                return;
+            }
+            else if (!AreAllValidChars5(password))
             {
                 MessageBox.Show("Пароль содержит ошибку(и), попробуйте изменить его.", "Ошибка");
                 PasswordBox.Clear(); // Очищаем TextBox
@@ -714,10 +751,28 @@ namespace AlmazAucceon_3_.AddElement
             else
             {
                 AddFinhs(name, LasteName, patronumic, birthDateTime, email, phoneNumber, password, idDolgnost, many);
-
-
             }
+        } 
+        #endregion
+
+        // Менялись ли значения у выбраного участника
+        private bool HasChanged(string name, string LasteName, string patronumic, DateTime birthDateTime, string email, string phoneNumber, string password, int idDolgnost, int many)
+        {
+            // Сравниваем входные параметры с оригинальными полями
+            bool hasChanged =
+                name != _originalUserName ||
+                LasteName != _originalLastname ||
+                patronumic != _originalPatronymic ||
+                birthDateTime.Date != _originalDataUser.Date || // Сравниваем только дату
+                email != _originalEmail ||
+                phoneNumber != _originalPhoneNumber ||
+                password != _originalPassword ||
+                idDolgnost != _originalIdRole || // Предполагается, что idDolgnost соответствует роли
+                many.ToString() != _originalMoney; // Сравнение значений денег
+
+            return hasChanged; // Возвращаем результат сравнения
         }
+
         private bool AreAllValidCharsPhone(string text)
         {
             foreach (char c in text)
@@ -733,6 +788,8 @@ namespace AlmazAucceon_3_.AddElement
         }
         private void AddFinhs(string name, string LasteName, string patronumic, DateTime birthDateTime, string email, string phoneNumber, string password, int idDolgnost, int many)
         {
+            MessageBox.Show($"Данные пользователя {name} {LasteName} отредактированы!");
+
             DateOnly birthDate = DateOnly.FromDateTime(birthDateTime);
             satrudneke.UserName = name;
             satrudneke.Lastname = LasteName;
@@ -743,6 +800,8 @@ namespace AlmazAucceon_3_.AddElement
             satrudneke.PhoneNumber = phoneNumber;
             satrudneke.IdRole = idDolgnost;
             satrudneke.Money = many.ToString();
+
+            dbContext.Update(satrudneke);
             dbContext.SaveChanges();
 
             NameBox.Clear();

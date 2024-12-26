@@ -100,11 +100,10 @@
                     </LinearGradientBrush>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding idSpisacTovars}" />
-                    <DataGridTextColumn Header="Пользователь" Binding="{Binding idUser }" />
-                    <DataGridTextColumn Header="Тавар" Binding="{Binding IdProdyct}" />
-                    <DataGridTextColumn Header="Категории" Binding="{Binding idCategoris}" />
-                    <DataGridTextColumn Header="Количество" Binding="{Binding count}" />
+                    <DataGridTextColumn Header="ID" Binding="{Binding IdSpisacTovars}" />
+                    <DataGridTextColumn Header="Пользователь" Binding="{Binding IdUserNavigation.Fullname}" />
+                    <DataGridTextColumn Header="Тавар" Binding="{Binding IdProdyctNavigation.ItemName}" />
+                    <DataGridTemplateColumn Header="Тавар"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -134,29 +133,22 @@
 
                     <Label Style="{StaticResource ResourceKey=DocButton}" Content="Тавар:" FontSize="22" Grid.Row="1" VerticalAlignment="Top" Margin="15,5,0,0" Height="43" Width="170"/>
                     <Label Style="{StaticResource ResourceKey=DocButton}" Content="Категория:" FontSize="22" Grid.Row="2" VerticalAlignment="Top" Margin="15,5,0,0" Height="43" Width="170"/>
-                    <Label Style="{StaticResource ResourceKey=DocButton}" Content="Количество:" FontSize="22" Grid.Row="3" VerticalAlignment="Top" Margin="15,5,0,0" Height="43" Width="170"/>
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Content="Цена:" FontSize="22" Grid.Row="3" VerticalAlignment="Top" Margin="15,5,0,0" Height="43" Width="170"/>
 
 
 
                     <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Content="Пользователь:" VerticalAlignment="Top" FontSize="22" Margin="15,5,0,0" Height="43" Width="181"/>
-                    <TextBox PreviewKeyDown="MainTextBox_PreviewKeyDown" Tag="Тавар" x:Name="TavarItems" Style="{StaticResource PlaceholderTextBoxStyle}"  Grid.Column="1"   
-                  VerticalAlignment="Top" Grid.Row="1" FontSize="28" Height="39" Margin="15,10,10,0" TextChanged="NameBox_TextChanged" >
+                    <ComboBox PreviewKeyDown="MainTextBox_PreviewKeyDown" Opacity="0.5"  DisplayMemberPath="ItemNameCost"  x:Name="TavarItemsComboBox" Grid.Column="1"   
+                  VerticalAlignment="Top" Grid.Row="1" FontSize="28" Height="39" Margin="15,10,10,0" SelectionChanged="TavarItems_SelectionChanged"/>
+                    <TextBox PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="UserCombobox" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Клиент" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" IsEnabled="False">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="9"/>
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-
-                    <TextBox  PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="UserTextBox" Tag="Пользователь" Grid.Row="0" Style="{StaticResource PlaceholderTextBoxStyle}" Grid.Column="1" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" TextChanged="IdDojnostBox_TextChanged">
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="9"/>
-                            </Style>
-                        </TextBox.Resources>
-
-                    </TextBox>
-                    <TextBox  PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="Kategori" Tag="Категория" Grid.Row="2" Style="{StaticResource PlaceholderTextBoxStyle}" Grid.Column="2" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" TextChanged="IdDojnostBox_TextChanged">
+                    
+                    <TextBox  PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="Kategori" IsEnabled="False" Tag="Категория" Grid.Row="2" Style="{StaticResource PlaceholderTextBoxStyle}" Grid.Column="2" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" TextChanged="IdDojnostBox_TextChanged">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="9"/>
@@ -164,7 +156,7 @@
                         </TextBox.Resources>
 
                     </TextBox>
-                    <TextBox  PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="CountTextBox" Tag="Количество" Grid.Row="3" Style="{StaticResource PlaceholderTextBoxStyle}" Grid.Column="2" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" TextChanged="IdDojnostBox_TextChanged">
+                    <TextBox  PreviewKeyDown="MainTextBox_PreviewKeyDown" FontSize="28" Name="CostTextBox" IsEnabled="False" Tag="Цена" Grid.Row="3" Style="{StaticResource PlaceholderTextBoxStyle}" Grid.Column="2" VerticalAlignment="Top"  Margin="15,10,10,0" Height="39" RenderTransformOrigin="0.5,0.5" TextChanged="IdDojnostBox_TextChanged">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="9"/>

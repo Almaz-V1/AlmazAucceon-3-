@@ -82,7 +82,7 @@ namespace AlmazAucceon_3_.menu
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow authorization = new MainWindow();
+            AuthorizationWindow authorization = new AuthorizationWindow();
 
             Close();
             authorization.Show();

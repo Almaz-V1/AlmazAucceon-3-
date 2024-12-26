@@ -39,7 +39,6 @@ namespace AlmazAucceon_3_.menu
         {
             dbContext.Users.Load();
             dataGridObject2.ItemsSource = dbContext.Users.Local.ToList();
-
         }
 
         private void cartButton_Click(object sender, RoutedEventArgs e)
@@ -54,7 +53,7 @@ namespace AlmazAucceon_3_.menu
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow authorization = new MainWindow();
+            AuthorizationWindow authorization = new AuthorizationWindow();
 
             Close();
             authorization.Show();
