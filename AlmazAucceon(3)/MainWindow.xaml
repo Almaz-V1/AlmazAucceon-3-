@@ -1,0 +1,175 @@
+﻿<Window x:Class="AlmazAucceon_3_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlmazAucceon_3_"
+        mc:Ignorable="d"
+        Title="Авторизация" MinHeight="800" MinWidth="1100" FontSize="20" 
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Closed="Window_Closed">
+    <Window.Resources>
+
+        <Style TargetType="Label"  x:Key="DocButton">
+            <Style.Setters>
+
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontFamily" Value="MS Reference Sans Serif" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="MinWidth" Value="55" />
+                <Setter Property="MaxHeight" Value="35" />
+                <Setter Property="MaxWidth" Value="275" />
+
+
+            </Style.Setters>
+        </Style>
+
+        <Style x:Key="PlaceholderTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border"
+            Padding="{TemplateBinding Padding}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            SnapsToDevicePixels="True">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" />
+
+                                <TextBlock x:Name="textBlock"
+                       FontSize="28"
+                                           VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       Margin="2,0,0,0"
+                       Foreground="{TemplateBinding BorderBrush}"
+                       IsHitTestVisible="False"
+                       Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                       Visibility="Collapsed" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="textBlock" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF7EB4EA" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#FF569DE5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Grid >
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="Gold" Offset="0.0"/>
+                <GradientStop Color="DarkBlue" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Width="500" Background="#F4A460" Height="650" MaxWidth="550"  Margin="0,15,0,15" CornerRadius="50, 50, 50, 50" Grid.Column="1">
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="0.5*" MaxHeight="150"/>
+                    <RowDefinition Height="0.7*" MaxHeight="150"/>
+                    <RowDefinition Height="1*" MaxHeight="250"/>
+                    <RowDefinition Height="1*" MaxHeight="250"/>
+                    <RowDefinition Height="1*" MaxHeight="150"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+
+                    <Border  >
+                        <Image  Stretch="Fill" Source="C:\Users\Acer\Pictures\b0de9e66a77ab47671fd0750f6e9f573.png" Margin="40,2,333,0"
+    RenderTransformOrigin="1.5,0.155"/>
+                    </Border>
+                    <Button Grid.Row="0"  Background="Gold" FontFamily="MS Reference Sans Serif" Margin="320,6,7,-1" Content="Регистрация"   MaxHeight="60" MaxWidth="140" Name="registrationButton" Click="registrationButton_Click" RenderTransformOrigin="0.76,0.565">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+
+                </Grid>
+                <Label Grid.Row="1" FontWeight="Bold" FontSize="24" MaxHeight="50" MaxWidth="500"  Content="Добро пожаловать" FontFamily="MS Reference Sans Serif" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Style="{StaticResource ResourceKey=DocButton}" MinWidth="55" MaxHeight="40" MaxWidth="320" Content="Логин:"/>
+                    <TextBox Padding="5" PreviewKeyDown="MainTextBox_PreviewKeyDown" VerticalAlignment="Center" FontSize="20" Width="320" Height="50" Style="{StaticResource PlaceholderTextBoxStyle}"  Tag="логин" x:Name="loginText" Grid.Row="1" MaxHeight="50" MaxWidth="320"   Text="{Binding Path=login}" TextChanged="loginText_TextChanged" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="9"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Style="{StaticResource ResourceKey=DocButton}" MaxHeight="40" MaxWidth="320" Content="Пароль:"/>
+                    <TextBox  TextChanged="PasswordTextBox_TextChanged" PreviewKeyDown="MainTextBox_PreviewKeyDown"  x:Name="PasswordTextBox" Tag="" Grid.Row="1" MaxHeight="50" MaxWidth="320" Padding="5" VerticalAlignment="Center" FontSize="20" Width="320" Height="50">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="9"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+
+                    <PasswordBox  Padding="5" PreviewKeyDown="MainTextBox_PreviewKeyDown" VerticalAlignment="Center" Background="White" FontSize="20" Width="320" Height="50"   Tag="login" x:Name="PasswordBox" Grid.Row="1" MaxHeight="50" MaxWidth="320">
+                        <PasswordBox.Resources>
+                            <Style TargetType="{x:Type PasswordBox}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type PasswordBox}">
+                                            <Border CornerRadius="9" 
+                                BorderThickness="1" 
+                                BorderBrush="Gray"
+                                Background="{TemplateBinding Background}">
+                                                <!-- Используем Background из PasswordBox -->
+                                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </PasswordBox.Resources>
+                    </PasswordBox>
+                    <CheckBox Checked="ViewPasswordCheckBox_Checked" Unchecked="ViewPasswordCheckBox_Unchecked" Name="ViewPasswordCheckBox"  Content="показать пароль" HorizontalAlignment="Left" Margin="90,82,0,0" Grid.Row="1" VerticalAlignment="Top" />
+                </Grid>
+                <Button  Background="Gold" FontFamily="MS Reference Sans Serif" FontSize="24" 
+                         Content="Войти"  Grid.Row="4" MaxHeight="60" MaxWidth="320" Name="AutButton" Click="AutButton_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

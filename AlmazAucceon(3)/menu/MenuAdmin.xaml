@@ -1,0 +1,196 @@
+﻿<Window x:Class="AlmazAucceon_3_.menu.MenuAdmin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:local="clr-namespace:AlmazAucceon_3_"
+ mc:Ignorable="d"
+                                                                  Title="Меню админа" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Height="800" Width="1200"  WindowState="Maximized"  MinHeight="800" MinWidth="1100" FontSize="16">
+    <Window.Resources>
+
+        <Style TargetType="Label"  x:Key="DocButton">
+            <Style.Setters>
+
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontFamily" Value="MS Reference Sans Serif" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="MinWidth" Value="55" />
+                <Setter Property="MaxHeight" Value="35" />
+                <Setter Property="MaxWidth" Value="275" />
+
+
+            </Style.Setters>
+        </Style>
+
+    </Window.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <Grid Grid.Column="0"  Background="#F4A460">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.1*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="0" Content="Сортировка"
+              Margin="10,0,0,63" Grid.RowSpan="2"/>
+                <Label FontSize="18"  Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="1" Content="Фильтрация" 
+               Margin="10,0,0,63" Grid.RowSpan="2"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="2" Content="Сброс настроек" 
+              Margin="10,0,0,63" Grid.RowSpan="2"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="3" Content="Поиск" 
+             Margin="10,0,162,63" Grid.RowSpan="2"/>
+
+                <ComboBox FontSize="20" FontFamily="MS Reference Sans Serif"  Grid.Row="1"  Height="45" Name="sortComboBox" 
+               SelectionChanged="sortComboBox_SelectionChanged" SelectedIndex="0"
+             VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <ComboBox FontSize="20" FontFamily="MS Reference Sans Serif" Grid.Row="1" Grid.Column="1"   Height="45" Name="filterComboBox" SelectedIndex="0"
+               SelectionChanged="filterComboBox_SelectionChanged" Margin="15,9,15,0" VerticalAlignment="Top"/>
+
+                <Button  Grid.Row="1" Grid.Column="2"  Height="45" FontSize="24" FontFamily="MS Reference Sans Serif" Background="Gold" Name="resetButton" Content="Сбросить" Click="resetButton_Click" 
+          VerticalAlignment="Center" Margin="10,0,10,0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <TextBox  FontSize="28" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Введите запрос" Grid.Row="1" Grid.Column="3" Height="45" Text="{Binding Path=login}" Name="searchTextBox" TextChanged="searchTextBox_TextChanged"
+                VerticalAlignment="Bottom" Margin="40,0,16,9" Grid.ColumnSpan="2">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="9"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </Grid>
+        </Grid>
+
+        <Grid  Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid DataGrid.IsReadOnly = "True" x:Name="dataGridObject" 
+                      AutoGenerateColumns ="False" SelectionChanged="DataGrid_SelectionChanged" RowBackground="Transparent">
+
+                <DataGrid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="1">
+                        <GradientStop Color="Gold" Offset="0.0"/>
+                        <GradientStop Color="#800020" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding IdStaffes}" />
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding StaffLastname}" />
+                    <DataGridTextColumn Header="Имя" Binding="{Binding StaffName}" />
+                    <DataGridTextColumn Header="Отчество" Binding="{Binding StaffPatronymic}" />
+                    <DataGridTextColumn Header="Логин" Binding="{Binding StaffLogin}" />
+                    <DataGridTextColumn Header="Пароль" Binding="{Binding StaffPsswords}" />
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumber}" />
+                    <DataGridTextColumn Header="Должность" Binding="{Binding IdStaffRoleNavigation.Title}" />
+                    <DataGridTextColumn Header="Почта" Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Год рождения" Binding="{Binding Data}" />
+                    <!-- Добавьте другие столбцы по мере необходимости -->
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Grid  Grid.Column="1" Background="#F4A460">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1.5*"/>
+                </Grid.RowDefinitions>
+
+                <Grid  Grid.Row="0">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions  >
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Content="Имя:" FontSize="22"
+                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="1" Content="Фамилия:" FontSize="22"
+                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="2" Content="Отчество:" FontSize="22"
+                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="3" Content="Роль:" FontSize="22"
+                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"/>
+
+                    <Label x:Name="Dog1"   Grid.Row="0" Grid.Column="1" Content="{Binding Path= Name}"  
+                 HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="15,0,0,0" Height="48" Width="226"/>
+                    <Label x:Name="Dog2" Grid.Row="1" Grid.Column="1"  Content="{Binding Path=LasteName}" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="15,0,0,0" Height="49" Width="226"/>
+                    <Label x:Name="Dog3" Grid.Row="2" Grid.Column="1" Content="{Binding Path=Patronymic}" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="15,0,0,0" Height="49" Width="204"/>
+                    <Label Grid.Row="3" x:Name="Dog4" Grid.Column="1" Content="{Binding Path=Title}"
+                 HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="15,0,0,0" Height="48" Width="204"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button  Background="Gold" FontSize="24" FontFamily="MS Reference Sans Serif" Grid.Row="0" Name="cartButton" Content="Панель категорий" Click="cartButton_Click"
+                     Width="350" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Grid.Row="1" Name="updateButton" Content="Редактирование лотов" Click="LotRegkick" FontSize="24" FontFamily="MS Reference Sans Serif"
+                     Width="350" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gold">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Grid.Row="2" FontSize="24" FontFamily="MS Reference Sans Serif" Name="PanelRazRAB" Content="Панель сотрудников" Click="PanelRaz_Click" 
+ Width="350" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Center" Background="Gold">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Grid.Row="3" Name="exitButton" Content="Назад" Click="exitButton_Click" FontSize="22"
+                     Width="350" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Center" Background="#e6e6fa">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
+

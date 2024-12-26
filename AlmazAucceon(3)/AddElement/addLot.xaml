@@ -1,0 +1,238 @@
+﻿<Window x:Class="AlmazAucceon_3_.AddElement.addLot"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:local="clr-namespace:AlmazAucceon_3_" xmlns:local1="clr-namespace:AlmazAucceon_3_.AddElement"
+        mc:Ignorable="d"
+                                                                                   Title="Меню (Список лотов)"  WindowStartupLocation="CenterScreen" WindowState="Maximized"  MinHeight="800" MinWidth="1100" Loaded="Window_Loaded" Closing="Window_Closing"
+     Closed="Window_Closed"
+  Height="800" Width="1100" FontSize="16">
+    <Window.Resources>
+        <Style TargetType="Label"  x:Key="DocButton">
+            <Style.Setters>
+
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontFamily" Value="MS Reference Sans Serif" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="MinWidth" Value="55" />
+                <Setter Property="MaxHeight" Value="35" />
+                <Setter Property="MaxWidth" Value="275" />
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+
+
+            </Style.Setters>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <Grid Grid.Column="0"  Background="#F4A460">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220*"/>
+                    <ColumnDefinition Width="220*"/>
+                    <ColumnDefinition Width="220*"/>
+                    <ColumnDefinition Width="177*"/>
+                    <ColumnDefinition Width="263*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="0" Content="Сортировка" VerticalAlignment="Bottom" Margin="10,0,0,26" Grid.RowSpan="2" Height="32" Width="119"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="1" Content="Фильтрация" VerticalAlignment="Bottom" Margin="10,0,0,26" Grid.RowSpan="2" Height="32" Width="123"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="2" Content="Сброс настроек" VerticalAlignment="Bottom" Margin="10,0,0,26" Grid.RowSpan="2" Height="32" Width="156"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Row="0" Grid.Column="4" Content="Поиск" VerticalAlignment="Bottom" Margin="10,0,0,26" Grid.RowSpan="2" Height="32" Width="66" RenderTransformOrigin="0.23,0.503"/>
+                <Label FontSize="18" Style="{StaticResource ResourceKey=DocButton}" Grid.Column="3" Content="Количество лотов" Width="180" Height="32" Grid.ColumnSpan="2" Margin="0,7,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <ComboBox  FontSize="20" FontFamily="MS Reference Sans Serif"  Grid.Row="1"  Height="45" Name="sortComboBox" 
+               SelectionChanged="sortComboBox_SelectionChanged" SelectedIndex="0"
+             VerticalAlignment="Top" Margin="10,9,10,0" Grid.RowSpan="2">
+
+
+                </ComboBox>
+                <ComboBox FontSize="20" FontFamily="MS Reference Sans Serif" Grid.Row="1" Grid.Column="1" Name="filterComboBox" SelectedIndex="0"
+               SelectionChanged="filterComboBox_SelectionChanged" Margin="15,10,15,10" Grid.RowSpan="2" />
+                <Label  Style="{StaticResource ResourceKey=DocButton}" Name ="CountLabel" Grid.Row="1" Grid.Column="3" Height="34" Width="176" HorizontalAlignment="Center" Margin="0,14,0,0" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <Button  Grid.Row="1" Grid.Column="2"  Height="45" FontSize="24" FontFamily="MS Reference Sans Serif" Background="Gold" Name="resetButton" Content="Сбросить" Click="resetButton_Click" 
+         VerticalAlignment="Top" Margin="28,9,29,0" Grid.RowSpan="2">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <TextBox  FontSize="28" Style="{StaticResource PlaceholderTextBoxStyle}" Tag="Введите запрос" Grid.Row="1" Grid.Column="4"  Height="39" Text="{Binding Path=login}" Name="searchTextBox" TextChanged="searchTextBox_TextChanged"
+                VerticalAlignment="Top" Margin="0,12,10,0" Grid.RowSpan="2">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="9"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </Grid>
+        </Grid>
+
+        <Grid  Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid DataGrid.IsReadOnly = "True" Grid.Column="0" x:Name="dataGridObject" AutoGenerateColumns ="False" SelectionChanged="DataGrid_SelectionChanged" CanUserDeleteRows="False" CanUserAddRows="False" RowBackground="Transparent"  Margin="0,0,2,0">
+                <DataGrid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="1">
+                        <GradientStop Color="Gold" Offset="0.0"/>
+                        <GradientStop Color="#800020" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </DataGrid.Background>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding ItemId}" />
+                    <DataGridTextColumn Header="Название" Binding="{Binding ItemName}" />
+                    <DataGridTextColumn Header="Цена" Binding="{Binding CurrentPrice, StringFormat={}{0} руб.}" />
+                    <DataGridTextColumn Header="Категория тавара" Binding="{Binding Categotia.Title}" />
+
+                    <DataGridTemplateColumn Header="Image">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image x:Name="ImageSource" 
+                                       Source="{Binding ImageItems}" 
+                                       Width="200" Height="150" Stretch="Uniform"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Grid Background="#F4A460" Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+
+                        <RowDefinition/>
+                        <RowDefinition/>
+
+                        <RowDefinition Height="182.943"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+
+                        <ColumnDefinition Width="2*"/>
+
+
+
+                    </Grid.ColumnDefinitions>
+
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Content="Название лота:" FontSize="22" VerticalAlignment="Top" Margin="15,26,0,0" Height="43" Width="247" Grid.ColumnSpan="2"/>
+
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="1" Content="Категория:" FontSize="22" VerticalAlignment="Top" Height="43" Width="153" Margin="15,27,0,0" RenderTransformOrigin="0.604,1.014" Grid.ColumnSpan="2"/>
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="2" Content="Конечная цена:" FontSize="22" VerticalAlignment="Top" Margin="15,26,0,0" Height="43" Width="222" Grid.ColumnSpan="2"/>
+
+                    <Label Style="{StaticResource ResourceKey=DocButton}" Grid.Row="3" Content="Изображение:" FontSize="22" Height="43" Width="209" Margin="15,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="0.099"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+
+                    <TextBox PreviewKeyDown="MainTextBox_PreviewKeyDown1" Tag="Лот" x:Name="NameBox" Style="{StaticResource PlaceholderTextBoxStyle}"   
+                   FontSize="28" Height="39" Margin="50,26,50,26" TextChanged="NameBox_TextChanged" Grid.Column="1" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="9"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Button Grid.Row="3" Grid.Column="1" Background="#e6e6fa"  Name="AddButtonImadge" FontSize="18" Content="Удалить" Height="45" Margin="50,129,50,0"  Click="DelitButtonImadge_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Grid.Row="3" Grid.Column="1" Background="Gold"  Name="DekitImadge" FontSize="18" Content="Редактировать" Height="45" Margin="50,79,50,59"  Click="AddButtonImadge_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <ComboBox x:Name="comboBoxProfessions"   DisplayMemberPath="Title" 
+SelectedValuePath="IdCategories" Grid.Row="1" SelectionChanged="comboBoxProfessions_SelectionChanged" Margin="50,30,50,30" Grid.RowSpan="1" Grid.Column="1"/>
+                    <TextBox PreviewKeyDown="MainTextBox_PreviewKeyDown3" Tag="Итоговая цена" x:Name="CurrentPriceBox" Grid.Row="2"  
+                  Style="{StaticResource PlaceholderTextBoxStyle}"   FontSize="28" Height="39" Grid.Column="1" PreviewTextInput="CurrentPriceBox_PreviewTextInput" Margin="49,26,50,26" TextChanged="CurrentPriceBox_TextChanged" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="9"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <Image x:Name="SelectedImage" Grid.Row="3" Grid.Column="1" Stretch="Uniform" Margin="52,0,50,109" Height="70" VerticalAlignment="Bottom"/>
+
+
+
+
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+
+                    </Grid.RowDefinitions>
+                    <Button Background="Gold"  Name="AddButton" FontSize="22" Content="Дабавить" Height="45" Margin="65,0,65,0"  Click="AddButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Background="Gold" Grid.Row="1" FontSize="22" Content="Удалить" Click="DeleteButton_Click" Name="DeleteButton" Margin="65,6,65,6">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Background="Gold" Grid.Row="2" FontSize="22" Name="EditButton" Content="Редактировать" Margin="65,6,65,0" Height="45" Click="EditButton_Click" VerticalAlignment="Top">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Grid.Row="3" Background="#e6e6fa" FontSize="22" Content="Выйти" Height="45" Margin="65,6,65,6" Click="Exit_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
